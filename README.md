@@ -6,7 +6,7 @@ Trennt Audio-Files auf denen Beiträge durch unüblich lang anhaltende Stille ge
 
 1. Repo klonen oder runterladen
 2. `cd <Verzeichnis in das entpackt wurde>`
-3. `python setup.py install` oder `pip -e install .`
+3. `python setup.py install`
 
 `stille_splitten` ist nun als Kommandozeilen-Befel zugänglich.
 
