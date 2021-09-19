@@ -49,7 +49,7 @@ Ausgabe:
     * in `stille_splitten/ergebnisse` sind die Ergebnisse als Exceldatei und JSON-formatiert zu finden in einer Sammeldatei für den gesamten Duchlauf
 
 
-# Beispiel für eine gefundene Sequenz:
+# Beispiel: Sequenz gefunden
 
 ```
         {
@@ -73,7 +73,7 @@ Dabei bedeutet:
         im File in unterschiedlichen Durchläufen gefunden wurde
     * **datei**: Datei in der diese Sequenz gefunden wurde (ohne Endung)
 
-## Hilfe
+# Hilfe
 
 ```
 Usage: stille_splitten [OPTIONS] COMMAND [ARGS]...
@@ -104,7 +104,7 @@ Commands:
             Beispielaufruf: `stille_splitten stapel`
             Durchsuche anderes Verzeichnis: `stille_splitten stapel "aus_diesem_verzeichnis"`
 ```
-### Hilfe: Kommando: `stapel`
+## Hilfe: Kommando: `stapel`
 
 ```
 Usage: stille_splitten stapel [OPTIONS] [VERZEICHNIS]
@@ -117,7 +117,7 @@ Options:
   -h, --help  Show this message and exit.
 ```
 
-### Hilfe: Kommando: `datei`
+## Hilfe: Kommando: `datei`
 
 ```
 Usage: stille_splitten datei [OPTIONS] DATEI [ERWARTUNG]
@@ -134,13 +134,11 @@ Options:
 Die Einstellung der genutzten Pfade und weitere Optionen ist bei Bedarf in
 `src/settings.py` möglich.
 
-# Anwendungsfall
+# Warum?
 
 ## Ausgangsproblem
 
-Bei der Rückwärtsdigitalisierung von Audiomedien werden Sammelbänder digitalisiert.
-Auf diesen sind Einzelbeiträge durch unüblich lange Sequenzen von Stille getrennt.
-Liegen für diese Bänder noch Sendenachweise vor, kann aus diesen die Anzahl der enthaltenen Beträge abgelesen werden. Nicht immer liegen diese Nachweise vor, zum Teil sind sie unvollständig. Zudem fehlen in aller Regel Timecodes zu den Beiträgen, sind falsch oder zu ungenau. Das ist für eine zufriedenstellende Archivierung ärgerlich -- oder ziemlich zeitaufwendig manuell zu fixen.
+Bei der Rückwärtsdigitalisierung von Audiomedien werden Sammelbänder digitalisiert. Auf diesen sind Einzelbeiträge durch unüblich lange Sequenzen von Stille getrennt. Liegen für diese Bänder noch Nachweise vor, kann aus diesen die Anzahl der enthaltenen Beträge abgelesen werden. Nicht immer ist das der Fall zum Teil sind sie unvollständig. Zudem fehlen in aller Regel Timecodes zu den Beiträgen, sind falsch oder zu ungenau. Das ist für eine zufriedenstellende Archivierung ärgerlich -- oder ziemlich zeitaufwendig manuell zu fixen.
 
 ## Lösung
 
@@ -151,3 +149,9 @@ Gibt es eine Vermutung, wieviele Sequenzen auf dem Band sind, prüft das Skript,
 Ist die Anzahl unbekannt, werden nach insgesamt acht Durchgängen mit unterschiedlichen Parametern die gefundenen Sequenzen verglichen. Gleichen sie sich hinreichend genau (max. 10 Sekunden Unterschied), gelten Sequemzmengen als gleich. In der Ausgabe wird notiert, wie oft die gleiche Sequenzmenge gefunden wird. Bisher scheinen die Ergebnisse ab etwa drei identischen Mengen zuverlässig zu sein. 
 
 Zur besseren Weiterverarbeitung werden die Ergebnisse in JSON und als Excel-Datei ausgegeben.
+
+## Alternativen
+
+- [pydub](https://github.com/jiaaro/pydub) bietet mit `detect_silence` eine ähnliche Funktion, baut ebenfalls auf ffmpeg auf, trifft den Anwendungsfall aber nur teilweise
+- [ffmpeg direkt nutzen](http://underpop.online.fr/f/ffmpeg/help/silencedetect.htm.gz), ffmpeg bietet `silencedetect`, auf das hier aufgebaut wird
+- [Audacity silence finder](https://manual.audacityteam.org/man/silence_finder_setting_parameters.html) 
