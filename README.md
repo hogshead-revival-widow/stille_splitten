@@ -12,7 +12,7 @@ Trennt Audio-Files auf denen Beiträge durch unüblich lang anhaltende Stille ge
 
 ## Voraussetzung
 
-[https://ffmpeg.org/](FFMPEG) muss auf dem System vorliegen und in `PATH` aufzufinden sein.
+[ffmpeg](https://ffmpeg.org/) muss auf dem System vorliegen und in `PATH` aufzufinden sein.
 Alternativ ist der Pfad zu FFMPEG in `src/settings.py` anzugeben.
 
 ## Einschränkung
