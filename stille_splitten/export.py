@@ -4,6 +4,7 @@ from pathlib import Path
 from timecode import Timecode
 import pandas as pd
 from .settings import SETTINGS
+from .consts import UNWEIGHTED_RESULTS
 
 def serialize_timecode(tc):
     if not isinstance(tc, Timecode):
@@ -26,11 +27,17 @@ def write_batch_results(file_name_analyzed, plausibility, sequences):
 
     to_dir = SETTINGS['dir_results']
 
-    file_name_format = r'%d%m%y'
     file_name_id = SETTINGS['run_id']
-    file_name_results = f'ergebnisse-{file_name_id}'
+    
+    if plausibility == UNWEIGHTED_RESULTS:
+        file_name_results = f'unschluessig_{file_name_analyzed.stem}_{file_name_id}'
+    else:
+        file_name_results = f'ergebnisse_{file_name_id}'
+
     excel_file = Path(to_dir) / Path(f'{file_name_results}.xlsx')
     json_file = Path(to_dir) / Path(f'{file_name_results}.json')
+
+    
 
     for item in sequences:
         item.update(
@@ -76,7 +83,8 @@ def write_single_results(file_name_analyzed, plausibility, sequences):
     to_dir = SETTINGS['dir_results']
 
     file_name_id = SETTINGS['run_id']
-    file_name_results = f'{Path(file_name_analyzed).stem}-{file_name_id}'
+    file_name_results = f'{Path(file_name_analyzed).stem}_{file_name_id}'
+
 
     excel_file = Path(to_dir) / Path(f'{file_name_results}.xlsx')
     json_file = Path(to_dir) / Path(f'{file_name_results}.json')
@@ -113,7 +121,13 @@ def write_results(file_name_analyzed, plausibility, sequences):
     logger.debug(
         f'input: {file_name_analyzed, plausibility, sequences}')
 
+    if plausibility == UNWEIGHTED_RESULTS:
+        write_batch_results(file_name_analyzed, plausibility, sequences)
+        return None
+
     if SETTINGS['batch_processing']:
         write_batch_results(file_name_analyzed, plausibility, sequences)
-    else:
-        write_single_results(file_name_analyzed, plausibility, sequences)
+        return None
+
+    write_single_results(file_name_analyzed, plausibility, sequences)
+
