@@ -132,8 +132,8 @@ Options:
 
 # Konfiguration
 
-Die Einstellung der genutzten Pfade und weitere Optionen ist bei Bedarf in
-`settings.py` möglich.
+Die Einstellung der genutzten Pfade ist bei Bedarf in
+`settings.py` möglich. Es finden sich dort weitere Optionen.
 
 # Warum?
 
