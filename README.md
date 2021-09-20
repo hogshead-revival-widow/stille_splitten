@@ -138,17 +138,17 @@ Die Einstellung der genutzten Pfade und weitere Optionen ist bei Bedarf in
 
 ## Ausgangsproblem
 
-Bei der Rückwärtsdigitalisierung von Audiomedien werden Sammelbänder digitalisiert. Auf diesen sind Einzelbeiträge durch unüblich lange Sequenzen von Stille getrennt. Liegen für diese Bänder noch Nachweise vor, kann aus diesen die Anzahl der enthaltenen Beträge abgelesen werden. Nicht immer ist das der Fall zum Teil sind sie unvollständig. Zudem fehlen in aller Regel Timecodes zu den Beiträgen, sind falsch oder zu ungenau. Das ist für eine zufriedenstellende Archivierung ärgerlich -- oder ziemlich zeitaufwendig manuell zu fixen.
+Bei der Rückwärtsdigitalisierung von Audiomedien werden Sammelbänder digitalisiert. Auf diesen sind Einzelbeiträge durch unüblich lange Sequenzen von Stille getrennt. Liegen für diese Bänder noch Nachweise vor, kann aus diesen die Anzahl der enthaltenen Beträge abgelesen werden. Nicht immer ist das der Fall, zum Teil sind sie unvollständig. Zudem fehlen in aller Regel Timecodes zu den Beiträgen, sind falsch oder ungenau. Das ist für eine zufriedenstellende Archivierung ärgerlich -- oder ziemlich zeitaufwendig manuell zu fixen.
 
 ## Lösung
 
-Dieses Skript generiert daher aus einem Audiofile mögliche Beitrags-Sequenzen, um digitalisierte Audiofiles besser im Archiv zugänglich zu machen. 
+Dieses Skript generiert daher aus einem Audiofile mögliche Beitrags-Sequenzen.
 
-Gibt es eine Vermutung, wieviele Sequenzen auf dem Band sind, prüft das Skript, ob die gefundenen Sequenzanzahl dieser Erwartung entspricht. Wenn eine passende Sequenzmenge gefunden wurde, wird die Suche abgebrochen. 
+Wird eine bestimmte Anzahl Sequenzen auf dem Band vermutet, prüft das Skript, ob die gefundenen Sequenzanzahl dieser Erwartung entspricht. Wenn eine passende Sequenzmenge gefunden wurde, wird die weitere Suche abgebrochen. 
 
 Ist die Anzahl unbekannt, werden nach insgesamt acht Durchgängen mit unterschiedlichen Parametern die gefundenen Sequenzen verglichen. Gleichen sie sich hinreichend genau (max. 10 Sekunden Unterschied), gelten Sequemzmengen als gleich. In der Ausgabe wird notiert, wie oft die gleiche Sequenzmenge gefunden wird. Bisher scheinen die Ergebnisse ab etwa drei identischen Mengen zuverlässig zu sein. 
 
-Zur besseren Weiterverarbeitung werden die Ergebnisse in JSON und als Excel-Datei ausgegeben.
+Zur Weiterverarbeitung werden die Ergebnisse in JSON und als Excel-Datei ausgegeben.
 
 ## Alternativen
 
