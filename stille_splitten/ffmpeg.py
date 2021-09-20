@@ -3,6 +3,8 @@ import logging
 import ffmpeg
 from timecode import Timecode
 from .settings import SETTINGS
+
+
 def run_ffmpeg(from_file, threshold, min_duration):
     """ Sucht per FFMPEG in `from_file` nach Stille,
     wobei Stille dann ist, wenn sie:
