@@ -25,7 +25,7 @@ def display_results(file_name_analyzed, expectation, sequences, plausibility):
             Gefundene Sequenzen: {len(sequences)} (erwartet: {expectation})''')
         display_sequences(file_name_analyzed, plausibility, sequences)
     elif UNWEIGHTED_RESULTS < plausibility < SUCCESS:
-        str_expectation = '(erwartet: {expectation})'
+        str_expectation = f'(erwartet: {expectation})'
         if expectation == 0:
             str_expectation = '(keine Erwartung angegeben)'
         print(f'''Wahrscheinlicher Fund für: {file_name}.
