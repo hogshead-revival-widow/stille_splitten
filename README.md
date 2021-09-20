@@ -23,6 +23,7 @@ Getestet wurde das Skript nur mit Python 3.8.2 auf macOS und Windows 10.
 
 Beim ersten Durchlauf wird in `Desktop/` das Verzeichnis `stille_splitten` angelegt.
 Es hat die folgenden Verzeichnisse:
+
     * `ergebnisse`: Hier werden die Ergebnisse als JSON/Excel-Dateien hinterlegt
     * `stapelverarbeitung`: Hier hinterlegte Dateien können über `stille_splitten stapel` durchsucht werden (siehe unten)
 
