@@ -7,6 +7,7 @@ from .ffmpeg import run_ffmpeg, get_formatted_sequence_info
 from .helper import is_plausible_result, check_input
 from .export import write_results
 
+
 def display_sequences(file_name_analyzed, plausibility, sequences):
     """ Zeigt Sequenzmengen an und löst für diese ggf. weiterführen Export-Prozess aus.
 
