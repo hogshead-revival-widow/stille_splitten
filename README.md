@@ -89,8 +89,8 @@ Commands:
   datei   Sucht in <Datei> nach Sequenzen, optional mit der Angabe der Anzahl
           der erwarteten Sequenzen (<Erwartung>).
           
-          Beispielaufruf: `cli.py datei "abc.mp3"`
-          Aufruf mit Erwartung: `cli.py datei "abc.mp3" 13`
+          Beispielaufruf: `stille_splitten datei "abc.mp3"`
+          Aufruf mit Erwartung: `stille_splitten datei "abc.mp3" 13`
           
   stapel Beginnt Stapelverarbeitung mit allen Files im Stapelverzeichnis.
           
