@@ -154,4 +154,4 @@ Zur besseren Weiterverarbeitung werden die Ergebnisse in JSON und als Excel-Date
 
 - [pydub](https://github.com/jiaaro/pydub) bietet mit `detect_silence` eine ähnliche Funktion, baut ebenfalls auf ffmpeg auf, trifft den Anwendungsfall aber nur teilweise
 - [ffmpeg direkt nutzen](http://underpop.online.fr/f/ffmpeg/help/silencedetect.htm.gz), ffmpeg bietet `silencedetect`, auf das hier aufgebaut wird
-- [Audacity silence finder](https://manual.audacityteam.org/man/silence_finder_setting_parameters.html) 
+- [Audacity silence finder](https://manual.audacityteam.org/man/silence_finder_setting_parameters.html) (nicht getestet, GUI)
