@@ -1,7 +1,7 @@
 from pathlib import Path
 import logging
-import sys
-import pkg_resources
+#import sys
+#import pkg_resources
 
 app_root = Path.home() / 'Desktop' / 'stille_splitten'
 
@@ -24,8 +24,7 @@ SETTINGS = dict(
     write_results_to_dir=True,
     print_full_sequences=False,
     # (Stille-Schwellwert: dBFS, Stille-Mindestdauer: Sekunden)
-    ffmpeg_options=[(-60, 2), (-50, 1), (-70, 2), (-50, 2),
-                    (-70, 1.5), (-60, 1.5), (-60, 3), (-60, 1)],
+    ffmpeg_options=[(-60, 2), (-50, 1), (-70, 2), (-50, 2)],
     cli_input = None,
     run_id = None,
     ffmpeg_binary=ffmpeg_file
