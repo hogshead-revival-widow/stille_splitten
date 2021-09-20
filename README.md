@@ -69,7 +69,7 @@ Dabei bedeutet:
   * **end**: das Ende der Sequenz
   * **duration**: Sequenz-Dauer 
   * **korpus_nr**: fortlaufende Position der Sequenz im File
-  * **sicherheit**: 2 bis 100
+  * **sicherheit**: Wert zwischen `1` und `8` *oder* `100`
     * 100: Sequenzmenge, der diese Sequenz zugehört, entspricht der Anzahl der erwarteten Sequenzen
     * 1-8: Häufigkeit mit der identische Sequenzmengen, wie die, zu der diese Sequenz gehört,  im File in unterschiedlichen Durchläufen gefunden wurde
   * **datei**: Datei in der diese Sequenz gefunden wurde (ohne Endung)
