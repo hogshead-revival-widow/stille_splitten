@@ -69,7 +69,7 @@ Dabei bedeutet:
   * **end**: das Ende der Sequenz
   * **duration**: Sequenz-Dauer 
   * **korpus_nr**: fortlaufende Position der Sequenz im File
-  * **sicherheit**: Wert zwischen `1` und `8` *oder* `100`
+  * **sicherheit**: Wert zwischen `1` und `4` *oder* `100`
     * 100: Sequenzmenge, der diese Sequenz zugehört, entspricht der Anzahl der erwarteten Sequenzen
     * 1-8: Häufigkeit mit der identische Sequenzmengen, wie die, zu der diese Sequenz gehört,  im File in unterschiedlichen Durchläufen gefunden wurde
   * **datei**: Datei in der diese Sequenz gefunden wurde (ohne Endung)
@@ -147,7 +147,7 @@ Dieses Skript generiert daher aus einem Audiofile mögliche Beitrags-Sequenzen.
 
 Wird eine bestimmte Anzahl Sequenzen auf dem Band vermutet, prüft das Skript, ob die gefundenen Sequenzanzahl dieser Erwartung entspricht. Wenn eine passende Sequenzmenge gefunden wurde, wird die weitere Suche abgebrochen. 
 
-Ist die Anzahl unbekannt, werden nach insgesamt acht Durchgängen mit unterschiedlichen Parametern die gefundenen Sequenzen verglichen. Gleichen sie sich hinreichend genau (max. 10 Sekunden Unterschied), gelten Sequemzmengen als gleich. In der Ausgabe wird notiert, wie oft die gleiche Sequenzmenge gefunden wird. Bisher scheinen die Ergebnisse ab etwa drei identischen Mengen zuverlässig zu sein. 
+Ist die Anzahl unbekannt, werden nach mehreren Durchgängen (vgl. `SETTINGS['ffmpeg_options']` in `settings.py`) mit unterschiedlichen Parametern die gefundenen Sequenzen verglichen. Gleichen sie sich hinreichend genau (max. 10 Sekunden Unterschied), gelten Sequemzmengen als gleich. In der Ausgabe wird notiert, wie oft die gleiche Sequenzmenge gefunden wird. Ab zwei gleichen Mengen scheinen die Ergebnisse zuverlässig.
 
 Zur Weiterverarbeitung werden die Ergebnisse in JSON und als Excel-Datei ausgegeben.
 
