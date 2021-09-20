@@ -4,25 +4,23 @@ import click
 import logging
 from pathlib import Path
 from .settings import SETTINGS
-from .split_silence import run, run_batch
+from .split_silence import run
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 exec_name = 'stille_splitten' # 'stille.exe'
 
 def start_processing(**kwargs):
-    global SETTINGS
-    SETTINGS['cli_input'] = kwargs
-    if kwargs['debug']:
-        SETTINGS['log_level'] = logging.DEBUG
-    if kwargs['batch_processing']:
-        run_batch(from_dir=kwargs['verzeichnis'])
-    else:
-        if kwargs['erwartung'] is None:
-            kwargs['erwartung'] = 0
-        paired_files = [(Path(kwargs['datei']), kwargs['erwartung'])]
-        run(paired_files)
-
    
+    if kwargs['batch_processing']:
+        files_from = kwargs['verzeichnis']
+    else:
+        expectation = 0
+        if kwargs['erwartung'] is not None:
+             expectation = kwargs['erwartung']
+        files_from = [(Path(kwargs['datei']), expectation)]
+    
+    run(files_from, cli_input=kwargs)
+
 
 @click.group(context_settings=CONTEXT_SETTINGS)
 @click.version_option(version='0.0.3', help='Version anzeigen und beenden.')
@@ -66,6 +64,4 @@ def datei(**kwargs):
     kwargs['batch_processing'] = False
     start_processing(**kwargs)
 
-"""
-"""
 
