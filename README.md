@@ -1,6 +1,6 @@
 # Überblick
 
-Trennt Audio-Files auf denen Beiträge durch unüblich lang anhaltende Stille getrent sind. Als Ergebnis werden die berechneten Start- und Endpunkte der Beiträge als Timecode ausgegeben. 
+Trennt Audio-Files auf denen Beiträge durch unüblich lang anhaltende Stille getrennt sind (z. B. digitalisierte Sammelbänder). Als Ergebnis werden die berechneten Start- und Endpunkte der Beiträge als Timecode ausgegeben. 
 
 # Installation
 
