@@ -89,18 +89,3 @@ def run(paired_files):
                 logger.error(f'Breche Suche für {file_name.stem} ab.\nGrund: {critical_error} (vgl. Log).')
 
     print('Beendet!')
-"""
-paired_files = [
-        # ('0-DLF-Nachrichten.mp3', 0),  # Gegentest
-        # Ergebnis: 6/7 gute Ergebnisse; 1 okayes Ergebnis
-        ('W5023536.flac', 12),
-        # ('W5023536.flac', 0),  # Angabe von 0 für: Keine Erwartung
-        ('W5023539.flac', 33),
-        ('W5023544.mp3', 3),
-        #('W5023544.mp3', 1),
-        #('W5023543.mp3', 25),
-        # ('W5023541.mp3', 21),  # Angabe in HFDB war falsch
-        # ('W5023540.mp3', 24),  # Nur geraten (stark)
-        # ('W5023535.mp3', 27)  # Nur geraten (schwach)
-    ]
-"""
