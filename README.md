@@ -52,26 +52,27 @@ Ausgabe:
 # Beispiel: Sequenz gefunden
 
 ```
-        {
-            "start": "00:00:00.000", 
-            "end": "00:04:18.232",
-            "duration": "00:04:18.231",
-            "korpus_nr": 1,
-            "sicherheit": 100,
-            "datei": "55-W5023544-Erwartung_falsch"
-        }
+[
+  {
+    "start": "00:00:00.000", 
+    "end": "00:04:18.232",
+    "duration": "00:04:18.231",
+    "korpus_nr": 1,
+    "sicherheit": 100,
+    "datei": "55-W5023544-Erwartung_falsch"
+  },...
+ ]
 ```
 
 Dabei bedeutet:
-    * **start**: den Beginn der Sequenz
-    * **end**: das Ende der Sequenz
-    * **duration**: Sequenz-Dauer 
-    * **korpus_nr**: fortlaufende Position der Sequenz im File
-    * **sicherheit**: 2 bis 100
-        * 100: Sequenzmenge, der diese Sequenz zugehört, entspricht der Anzahl der erwarteten Sequenzen
-        * 1-8: Häufigkeit mit der identische Sequenzmengen, wie die, zu der diese Sequenz gehört, 
-        im File in unterschiedlichen Durchläufen gefunden wurde
-    * **datei**: Datei in der diese Sequenz gefunden wurde (ohne Endung)
+  * **start**: den Beginn der Sequenz
+  * **end**: das Ende der Sequenz
+  * **duration**: Sequenz-Dauer 
+  * **korpus_nr**: fortlaufende Position der Sequenz im File
+  * **sicherheit**: 2 bis 100
+    * 100: Sequenzmenge, der diese Sequenz zugehört, entspricht der Anzahl der erwarteten Sequenzen
+    * 1-8: Häufigkeit mit der identische Sequenzmengen, wie die, zu der diese Sequenz gehört,  im File in unterschiedlichen Durchläufen gefunden wurde
+  * **datei**: Datei in der diese Sequenz gefunden wurde (ohne Endung)
 
 # Hilfe
 
