@@ -33,20 +33,20 @@ Das Log findet sich in `Desktop/stille_splitten/stille_splitten.log`.
 # Benutzung (Datei)
 
 Die Datei `abc.mp3` soll untersucht werden, erwartet werden 3 Sequenzen, die durch Stille getrennt sind:
-    * `stille_splitten datei abc.mp3 3`
+  * `stille_splitten datei abc.mp3 3`
 
 Ausgabe:
-    * in der Konsole wird der Fund als sicher oder wahrscheinlich eingeschätzt
-    * in `stille_splitten/ergebnisse` sind die Ergebnisse als Exceldatei und JSON-formatiert zu finden
+  * in der Konsole wird der Fund als sicher oder wahrscheinlich eingeschätzt
+  * in `stille_splitten/ergebnisse` sind die Ergebnisse als Exceldatei und JSON-formatiert zu finden
 
 # Benutzung (Stapelverarbeitung)
 
 Alle Dateien im Verzeichnis `xyz/` sollen untersucht werden, es enthält z. B. die Datei `13-abc.mp3`. Durch die Angabe von "13-" im Dateinamen wird von dieser Datei angenomen, dass sie 13 Sequenzen enthält.
-    * `stille_splitten stapel xyz`
+  * `stille_splitten stapel xyz`
 
 Ausgabe:
-    * in Konsole wird der Fund als sicher oder wahrscheinlich eingeschätzt
-    * in `stille_splitten/ergebnisse` sind die Ergebnisse als Exceldatei und JSON-formatiert zu finden in einer Sammeldatei für den gesamten Duchlauf
+  * in Konsole wird der Fund als sicher oder wahrscheinlich eingeschätzt
+  * in `stille_splitten/ergebnisse` sind die Ergebnisse als Exceldatei und JSON-formatiert zu finden in einer Sammeldatei für den gesamten Duchlauf
 
 
 # Beispiel: Sequenz gefunden
