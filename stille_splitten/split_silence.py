@@ -1,23 +1,24 @@
 import logging
 from pathlib import Path
-from .consts import SUCCESS, NO_RESULT, UNWEIGHTED_RESULTS
+from .consts import SUCCESS, NO_RESULT, UNWEIGHTED_RESULTS, NAME
 from .settings import SETTINGS
 from .sequences import search_sequences, display_sequences
 from .helper import get_batch_files, setup
 
+
 def display_results(file_name_analyzed, expectation, sequences, plausibility):
     """ Zeigt gefundene Ergebnisse mit weiterführenden Informationen an.
-    
+
     Args:
         * file_name_analyzed: str/Path 
         * expectation: int
         * sequences: [dict,..]
         * plausibility: int: SUCCESS, <Relative Häufigkeit>, UNWEIGHTED_RESULTS, NO_RESULT
     """
-    logger = logging.getLogger(__name__)
+    logger = logging.getLogger(NAME)
     logger.debug(
         f'input: {file_name_analyzed, expectation, sequences, plausibility}')
-    
+
     file_name = Path(file_name_analyzed).stem
     if plausibility == SUCCESS:
         print(
@@ -58,11 +59,12 @@ def run(files_from, cli_input=None):
         * files_from: 
             * entweder: [(Datei:Path, Erwartete_Sequenzen:int)]  
             * oder: Path/str
+        * cli_input: None / dict
     """
 
     setup(cli_input)
 
-    logger = logging.getLogger(__name__)
+    logger = logging.getLogger(NAME)
     paired_files = files_from
 
     if not isinstance(paired_files, list):
@@ -72,13 +74,13 @@ def run(files_from, cli_input=None):
         paired_files = get_batch_files(files_from)
     else:
         logger.info(f'Nehme an, dass Einzeldatei-Verarbeitung')
-    
 
     if len(paired_files) == 0:
         logger.info(f'Beende: Keine Datei gefunden.\n\n')
         print('Problem: Keine Dateien gefunden.')
         if SETTINGS['batch_processing']:
-            print(f'Sind Dateien im Verzeichnis `{SETTINGS["dir_batch_processing"]}`?')
+            print(
+                f'Sind Dateien im Verzeichnis `{SETTINGS["dir_batch_processing"]}`?')
         exit('Beeendet.')
 
     logger.info(f'Beginne Suche (Lauf-ID: {SETTINGS["run_id"]}).')
@@ -90,13 +92,17 @@ def run(files_from, cli_input=None):
                 nr_of = f'({file_counter}/{len(paired_files)})'
             print(f'Durchsuche: {file_name} {nr_of}')
             print('Das kann einen Moment dauern, bitte warten.')
-            all_sequences, plausibility = search_sequences(file_name, expectation)
-            display_results(file_name, expectation, all_sequences, plausibility)
-        except Exception as critical_error:
-                logger = logging.getLogger(__name__)
-                logger.debug(f'input: {paired_files}')
-                logger.debug(critical_error, exc_info=True)
-                logger.error(f'Breche Suche für {file_name.stem} ab.\nGrund: {critical_error} (vgl. Log).')
+            all_sequences, plausibility = search_sequences(
+                file_name, expectation)
+            display_results(file_name, expectation,
+                            all_sequences, plausibility)
+        except Exception as error:
+            logger.debug(f'input: {paired_files}')
+            logger.warning(error, exc_info=True)
+            print(
+                f'Breche Suche für {file_name.stem} ab.\nGrund: {error} (vgl. Log).')
         print('---\n')
-
-    print('Beendet.')
+        logger.info(f'Beende Durchlauf für {file_name.stem}.')
+    done = f"Fertig! (Lauf-ID: {SETTINGS['run_id']})"
+    logger.info(done)
+    print(done)
