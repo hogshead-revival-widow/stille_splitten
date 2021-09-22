@@ -10,7 +10,7 @@ setup(
     description='Splittet Beiträge die durch Stille separiert sind',
     packages=find_packages(),
     include_package_data=True,
-    python_requires='~=3.6.8',
+    python_requires='>=3.6.8',
     classifiers=['Development Status :: 3 - Alpha',
                  'Programming Language :: Python', 'Programming Language :: Python :: 3',
                  'Topic :: Multimedia :: Sound/Audio', 'Topic :: Multimedia :: Sound/Audio :: Analysis',
