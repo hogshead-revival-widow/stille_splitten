@@ -3,6 +3,7 @@ import logging
 import ffmpeg
 from timecode import Timecode
 from .settings import SETTINGS
+from .consts import NAME
 
 
 def run_ffmpeg(from_file, threshold, min_duration):
@@ -12,18 +13,18 @@ def run_ffmpeg(from_file, threshold, min_duration):
         * mindestens `min_duration` lang ist (Sekunden)
         * und die Lautstärke dort maximal `threshold` dBFS (0=maximale Lautsärke)
         beträgt.
-    
+
     Args:
         threshold: int
         min_duration: int/float
-    
+
     Returns: 
         * ffmpeg_output: str
     """
-    logger = logging.getLogger(__name__)
+    logger = logging.getLogger(NAME)
 
     logger.info(
-        f'FFMPEG-Durchlauf: Optionen: Schwellert: {threshold}dBFS; Mindestdauer: {min_duration} Sekunden')
+        f'FFMPEG-Durchlauf: Optionen: Schwellwert: {threshold}dBFS; Mindestdauer: {min_duration} Sekunden')
     ffmpeg_output = (
         ffmpeg
         .input(from_file)
@@ -33,6 +34,7 @@ def run_ffmpeg(from_file, threshold, min_duration):
     )
     logger.debug(f'FFMPEG-Durchlauf: output ffmpeg: {ffmpeg_output}')
     return str(ffmpeg_output)
+
 
 def get_formatted_sequence_info(from_ffmpeg_output):
     """ Puhlt Timecodes für Gesamtdauer und Stille-Sequenzen aus `ffmpeg´-Ausgabe.
@@ -49,7 +51,7 @@ def get_formatted_sequence_info(from_ffmpeg_output):
 
     """
     from_ffmpeg_output = str(from_ffmpeg_output)
-    logger = logging.getLogger(__name__)
+    logger = logging.getLogger(NAME)
     logger.debug(f'input {from_ffmpeg_output}')
 
     # Gesamtdauer (File)
