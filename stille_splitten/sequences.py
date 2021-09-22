@@ -1,7 +1,7 @@
 import logging
 import copy
 from timecode import Timecode
-from .consts import SUCCESS, NO_RESULT, UNWEIGHTED_RESULTS
+from .consts import SUCCESS, NO_RESULT, UNWEIGHTED_RESULTS, NAME
 from .settings import SETTINGS
 from .ffmpeg import run_ffmpeg, get_formatted_sequence_info
 from .helper import is_plausible_result, check_input
@@ -13,12 +13,11 @@ def display_sequences(file_name_analyzed, plausibility, sequences):
 
     Args:
         * file_name_analyzed: Path 
-        * expectation: int
-        * sequences: [dict,..]
         * plausibility: int: SUCCESS, <Relative Häufigkeit>, UNWEIGHTED_RESULTS, NO_RESULT
-    
+        * sequences: [dict,..]
     """
-    logger = logging.getLogger(__name__)
+
+    logger = logging.getLogger(NAME)
     logger.debug(f'input: {file_name_analyzed, plausibility, sequences}')
 
     if SETTINGS['write_results_to_dir']:
@@ -27,24 +26,25 @@ def display_sequences(file_name_analyzed, plausibility, sequences):
     if SETTINGS['print_full_sequences']:
         for sequence in sequences:
             print(f'''
-            Korpus #{sequence['korpus_nr']}
+            Korpus #{sequence['sequence_nr']}
                 In:     {sequence['start']}
                 Out:    {sequence['end']}
                 Dauer:  {sequence['duration']}''')
+
 
 def guess_most_plausible_sequences(all_tries):
     """ Gibt die (grob) plausiblste Sequenzmenge zurück.
 
     Args:
         * all_tries: [[dict,...],..]
-    
+
     Returns:
         * wenn plausible Sequenzmenge gefunden:
             * Sequenzmenge: [dict,...]
-            * Häufigkeit (int>1),
+            * Häufigkeit (>`UNWEIGHTED_RESULTS`),
         * wenn nicht:
             * all_tries: [[dict,...],..]
-            * 1
+            * `UNWEIGHTED_RESULTS`
     """
     in_all_tries = all_tries
     all_tries = copy.deepcopy(all_tries)
@@ -79,7 +79,7 @@ def generate_sequences(from_file, expectation):
 
     Returns:
         * wenn eindeutig
-            * found_sequences: [dict(start, ende, dauer, korpus_nr)] (wenn gefunden)
+            * found_sequences: [dict(start, end, duration, sequence_nr)] (wenn gefunden)
             * True
         * wenn es Versuche gab, die ein Ergebnis hatten
             * all_tries: [found_sequences, found_sequences,...] (wenn nicht gefunden)
@@ -88,7 +88,7 @@ def generate_sequences(from_file, expectation):
             * None
             * False
     """
-    logger = logging.getLogger(__name__)
+    logger = logging.getLogger(NAME)
     logger.debug(f'input: {from_file, expectation}')
 
     all_tries = list()
@@ -127,12 +127,12 @@ def get_sequences(full_duration, silence_sequences):
 
     Args:
         * full_duration: Timecode
-        * timecode_list: [Timecode, Timecode,...]
+        * silence_sequences: [Timecode, Timecode,...]
 
     Returns:
-        * paired_sequences: [dict(start, ende, dauer, korpus_nr)]
+        * paired_sequences: [dict(start, end, duration, sequence_nr)]
     """
-    logger = logging.getLogger(__name__)
+    logger = logging.getLogger(NAME)
     logger.debug(f'input: {full_duration, silence_sequences}')
     first_timecode = Timecode(1000, 0)
     last_timecode = full_duration
@@ -143,13 +143,13 @@ def get_sequences(full_duration, silence_sequences):
     all_sequences.append(last_timecode)
     paired_sequences = list()
 
-    for korpus_nr, (start, end) in enumerate(zip(*[iter(all_sequences)] * 2), 1):
-        logger.debug(f'korpus_nr, (start, end): {korpus_nr, (start, end)}')
+    for sequence_nr, (start, end) in enumerate(zip(*[iter(all_sequences)] * 2), 1):
+        logger.debug(f'sequence_nr, (start, end): {sequence_nr, (start, end)}')
         korpus = dict(
             start=start,
             end=end,
             duration=end - start,
-            korpus_nr=korpus_nr
+            sequence_nr=sequence_nr
         )
         paired_sequences.append(korpus)
     logger.debug(f'output: {paired_sequences}')
@@ -165,23 +165,26 @@ def search_sequences(from_file, expectation):
 
     Returns:
         * wenn eindeutiges Ergebnis
-            * all_sequences: [dict(start, ende, dauer, korpus_nr)]
+            * all_sequences: [dict(start, ende, dauer, sequence_nr)]
             * SUCCESS
         * wenn keinerlei Ergebnis
             * None
             * NO_RESULT
         * wenn keine Gewichtung innerhalb Versuche möglich
-            * [[dict(start, ende, dauer, korpus_nr)],...]
+            * [[dict(start, end, duration, sequence_nr)],...]
             * UNWEIGHTED_RESULTS
         * wenn mögliches Ergebnis
-            * most_plausible_sequences: [dict(start, ende, dauer, korpus_nr)]
+            * most_plausible_sequences: [dict(start, end, duration, sequence_nr)]
             * <Plausibilität: int> (entspricht der relativen Häufgkeit, bezogen auf Gesamtdurchläufe)
     """
-    logger = logging.getLogger(__name__)
+    logger = logging.getLogger(NAME)
     expectation = int(expectation)
 
-    logger.info(
-        f'\n\nStarte Suche nach {expectation} Beiträgen für {from_file}\n\n')
+    if expectation > 0:
+        logger.info(
+            f'\n\nStarte Suche nach {expectation} Beiträgen für {from_file}\n\n')
+    else:
+        logger.info(f'\n\nStarte Suche nach Beiträgen für {from_file} (ohne Erwartung) \n\n')
     logger.debug(f'Genutzte Settings: {SETTINGS}')
     logger.debug(f'input: {from_file, expectation}')
 
