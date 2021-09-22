@@ -6,22 +6,20 @@ Trennt Audio-Files auf denen Beiträge durch unüblich lang anhaltende Stille ge
 
 1. Repo klonen oder runterladen
 2. `cd <Verzeichnis in das entpackt wurde>`
-3. `python setup.py install`
+3. `python -m pip install -e .`
 
 `stille_splitten` ist nun als Kommandozeilen-Befel zugänglich.
 
 ## Voraussetzung
 
 [ffmpeg](https://ffmpeg.org/) muss auf dem System vorliegen und in `PATH` aufzufinden sein.
+
 Alternativ ist der Pfad zu FFMPEG in `settings.py` anzugeben.
-
-## Einschränkung
-
-Getestet wurde das Skript nur mit Python 3.8.2 auf macOS und Windows 10.
 
 # Wo finde ich was?
 
 Beim ersten Durchlauf wird in `Desktop/` das Verzeichnis `stille_splitten` angelegt.
+
 Es hat die folgenden Verzeichnisse:
    * `ergebnisse`: Hier werden die Ergebnisse als JSON/Excel-Dateien hinterlegt
    * `stapelverarbeitung`: Hier hinterlegte Dateien können über `stille_splitten stapel` durchsucht werden (siehe unten)
@@ -57,9 +55,9 @@ Ausgabe:
     "start": "00:00:00.000", 
     "end": "00:04:18.232",
     "duration": "00:04:18.231",
-    "korpus_nr": 1,
-    "sicherheit": 100,
-    "datei": "55-W5023544-Erwartung_falsch"
+    "sequence_nr": 1,
+    "probability": 100,
+    "in_file": "55-W5023544-Erwartung_falsch"
   },...
  ]
 ```
@@ -68,11 +66,11 @@ Dabei bedeutet:
   * **start**: den Beginn der Sequenz
   * **end**: das Ende der Sequenz
   * **duration**: Sequenz-Dauer 
-  * **korpus_nr**: fortlaufende Position der Sequenz im File
-  * **sicherheit**: Wert zwischen `1` und `4` *oder* `100`
+  * **sequence_nr**: fortlaufende Position der Sequenz im File
+  * **probability**: Wert zwischen `1` und der maximalen Menge an Durchläufen (vgl. `SETTINGS['ffmpeg_options']`) *oder* `100`
     * 100: Sequenzmenge, der diese Sequenz zugehört, entspricht der Anzahl der erwarteten Sequenzen
-    * 1-8: Häufigkeit mit der identische Sequenzmengen, wie die, zu der diese Sequenz gehört,  im File in unterschiedlichen Durchläufen gefunden wurde
-  * **datei**: Datei in der diese Sequenz gefunden wurde (ohne Endung)
+    * 1-4: Häufigkeit mit der identische Sequenzmengen, wie die, zu der diese Sequenz gehört,  im File in unterschiedlichen Durchläufen gefunden wurde
+  * **in_file**: Datei in der diese Sequenz gefunden wurde (ohne Endung)
 
 # Hilfe
 
