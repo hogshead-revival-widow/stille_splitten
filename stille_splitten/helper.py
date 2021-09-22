@@ -3,15 +3,29 @@ import random
 import string
 from pathlib import Path
 
-from timecode import Timecode
 from .settings import SETTINGS
 
 
-def setup():
+def setup(cli_input=None):
     global SETTINGS
+
     SETTINGS['run_id'] = get_run_id()
+
     setup_directories()
+    setup_from_cli(cli_input)
     setup_logger()
+
+def setup_from_cli(cli_input):
+ 
+    if cli_input is None:
+         return
+
+    SETTINGS['cli_input'] = cli_input
+
+    if cli_input.get('debug', False):
+        SETTINGS['log_level'] = logging.DEBUG
+
+
 
 def setup_directories():
     """ Prüft ob die in `SETTINGS` genannten Verzeichnisse existieren,
@@ -85,13 +99,29 @@ def get_batch_files(from_dir):
         * paired_files: [(Datei:Path, Erwartete_Sequenzen:int)]  
     """
     logger = logging.getLogger(__name__)
-    logger.debug('Stapelverarbeitung: Suche Files')
+    logger.info('Stapelverarbeitung: Suche Files')
+    logger.info(f'Stapelverarbeitung: Ergebnisaufgabe auf Sammeldatei gesetzt.')
+    SETTINGS['batch_processing'] = True
+
+    if from_dir is None:
+        from_dir = SETTINGS["dir_batch_processing"]
+    else:
+        SETTINGS["dir_batch_processing"] = from_dir
 
     def get_expectation(file_name):
+        in_file_name = file_name
         file_name = str(file_name.stem)
         if '-' in file_name:
-            expectation = int(file_name.split('-')[0])
-            logger.debug(f'Gefundene Erwartung: {expectation}')
+            try:
+                expectation = int(file_name.split('-')[0])
+                logger.debug(f'Gefundene Erwartung: {expectation}')
+            except Exception as non_critical_error:
+                logger.debug(f'Fehler beim Auslesen von Erwartung aus Dateiname, Fehler: {non_critical_error}')
+                print('Namenskonvention: <Erwartung>-abc.endung')
+                print('Beispiel: 3-W0543125.mp3 (Erwartung: 3 Sequenzen)')
+                print(f'Aus der Datei {in_file_name} konnte keine Erwartung gelesen werden.')
+                print('Fahre ohne Erwartung fort.')
+                return 0
             return expectation
         return 0
             
