@@ -1,3 +1,5 @@
 SUCCESS = 100
 NO_RESULT = -1
 UNWEIGHTED_RESULTS = 1
+VERSION = '0.0.5'
+NAME = 'stille_splitten'
