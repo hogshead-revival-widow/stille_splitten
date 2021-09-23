@@ -1,14 +1,13 @@
-from os import error
 import sys
 import traceback
 import subprocess
 import shutil
-import pkg_resources
 from pathlib import Path
 from stille_splitten.consts import NAME, FFMPEG_FILE, PYINSTALL_PLANNED
 
 if not PYINSTALL_PLANNED:
-    sys.exit('Pyinstallation laut stille_splitten.consts nicht geplant. Bitte ggf. ändern.')
+    sys.exit('Erstellung einer portablen Version laut stille_splitten.consts nicht geplant. Bitte ggf. ändern.')
+
 
 try:
     import pyinstaller
@@ -17,33 +16,50 @@ except ModuleNotFoundError:
     subprocess.check_call([python, '-m', 'pip', 'install', 'pyinstall'])
 
 
-template = '''from stille_splitten.cli import cli
+output_name = Path(NAME).stem
+pyinstaller_input_file_content = '''from stille_splitten.cli import cli
 cli()'''
-
-file_name = Path(NAME).stem + '.py'
-if not Path(file_name).is_file():
-    with open(file_name, 'w') as f:
-        f.write(template)
+pyinstaller_input_file = output_name + '.py'
+pyinstaller_input_file = Path(pyinstaller_input_file)
+if not pyinstaller_input_file.is_file():
+    with open(pyinstaller_input_file, 'w') as f:
+        f.write(pyinstaller_input_file_content)
 else:
-    sys.exit(f'Kann Datei nicht anlegen, {file_name} existiert bereites.')
-
+    sys.exit(f'''Kann Datei nicht anlegen,
+{pyinstaller_input_file} existiert bereites.''')
 
 try:
-    name_dir = NAME
-    if '.' in NAME:
-        name_dir = NAME.split('.')[0]
     ffmpeg_bin = Path('stille_splitten') / FFMPEG_FILE
+    if not ffmpeg_bin.is_file():
+        sys.exit('''Konnte ffmpeg-binary nicht finden. Bitte unter stille_splitten/bin ablegen
+und `FFMPEG_FILE` in consts entsprechend benennen.''')
 
-    subprocess.check_call(['pyinstaller', file_name])
+    subprocess.check_call(['pyinstaller', pyinstaller_input_file])
 
-    target_path = Path(Path('dist') / name_dir / ffmpeg_bin.parent)
+    dist_path = Path('dist') / output_name
+    target_path = dist_path / ffmpeg_bin.parent
     target_path.mkdir(parents=True, exist_ok=True)
     shutil.copy2(ffmpeg_bin, target_path)
 
-    print(f'Done: {NAME} sollte nun als unabhängig ausführbare Datei vorliegen.')
-except Exception as error:
-    print(error, traceback.format_exc())
+    shutil.move(str(dist_path), output_name)
+
+    print(f'''Das Verzeichnis `{Path(output_name).absolute()}`
+enthält nun eine portable Version von `{NAME}`.''')
+
+except Exception as error_was:
+    print(error_was, traceback.format_exc())
     print('Fehler, abgebrochen.')
-created_file = Path(file_name) 
-if created_file.is_file():
-    created_file.unlink()
+
+# clean up
+to_be_removed = [
+    Path('dist'),
+    Path('build'),
+    Path(output_name + '.spec'),
+    pyinstaller_input_file
+]
+
+for item_to_remove in to_be_removed:
+    if item_to_remove.is_file():
+        item_to_remove.unlink()
+    elif item_to_remove.is_dir():
+        shutil.rmtree(item_to_remove)
