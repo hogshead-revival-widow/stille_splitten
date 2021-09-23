@@ -14,7 +14,7 @@ Trennt Audio-Files auf denen Beiträge durch unüblich lang anhaltende Stille ge
 
 [ffmpeg](https://ffmpeg.org/) muss auf dem System vorliegen und in `PATH` aufzufinden sein.
 
-Alternativ ist der Pfad zu FFMPEG in `settings.py` anzugeben.
+Alternativ ist der Pfad zu FFMPEG in `settings.py` anzugeben bzw. eine portable Version zu erstellen (siehe unten im Anhang).
 
 # Wo finde ich was?
 
@@ -133,28 +133,6 @@ Options:
 Die Einstellung der genutzten Pfade ist bei Bedarf in
 `settings.py` möglich. Es finden sich dort weitere Optionen.
 
-# Warum?
-
-## Ausgangsproblem
-
-Bei der Rückwärtsdigitalisierung von Audiomedien werden Sammelbänder digitalisiert. Auf diesen sind Einzelbeiträge durch unüblich lange Sequenzen von Stille getrennt. Liegen für diese Bänder noch Nachweise vor, kann aus diesen die Anzahl der enthaltenen Beträge abgelesen werden. Nicht immer ist das der Fall, zum Teil sind sie unvollständig. Zudem fehlen in aller Regel Timecodes zu den Beiträgen, sind falsch oder ungenau. Das ist für eine zufriedenstellende Archivierung ärgerlich -- oder ziemlich zeitaufwendig manuell zu fixen.
-
-## Lösung
-
-Dieses Skript generiert daher aus einem Audiofile mögliche Beitrags-Sequenzen.
-
-Wird eine bestimmte Anzahl Sequenzen auf dem Band vermutet, prüft das Skript, ob die gefundenen Sequenzanzahl dieser Erwartung entspricht. Wenn eine passende Sequenzmenge gefunden wurde, wird die weitere Suche abgebrochen. 
-
-Ist die Anzahl unbekannt, werden nach mehreren Durchgängen (vgl. `SETTINGS['ffmpeg_options']` in `settings.py`) mit unterschiedlichen Parametern die gefundenen Sequenzen verglichen. Gleichen sie sich hinreichend genau (max. 10 Sekunden Unterschied), gelten Sequemzmengen als gleich. In der Ausgabe wird notiert, wie oft die gleiche Sequenzmenge gefunden wird. Ab zwei gleichen Mengen scheinen die Ergebnisse zuverlässig.
-
-Zur Weiterverarbeitung werden die Ergebnisse in JSON und als Excel-Datei ausgegeben.
-
-## Alternativen
-
-- [pydub](https://github.com/jiaaro/pydub) bietet mit `detect_silence` eine ähnliche Funktion, baut ebenfalls auf ffmpeg auf, trifft den Anwendungsfall aber nur teilweise
-- [ffmpeg direkt nutzen](http://underpop.online.fr/f/ffmpeg/help/silencedetect.htm.gz), ffmpeg bietet `silencedetect`, auf das hier aufgebaut wird
-- [Audacity silence finder](https://manual.audacityteam.org/man/silence_finder_setting_parameters.html) (nicht getestet, GUI)
-
 # Anhang
 
 ## Generierung einer portablen Datei
@@ -176,4 +154,29 @@ Um das Skript auch unabhängig von einer existierenden Pythoninstallation einset
 9. `python3 create_portable.py`
 10. Der in `dist` erstellte Ordner ist nun teilbar und kann unabhängig von einer eigenständigen Pythoninstallation oder Drittbibliotheken eingesetzt werden.
 
+### Windows
+
 Die Schritte auf Windows sind analog. Leider erlaubt Pyinstall keine Crossplattform-Generierung, entsprechend muss dieser Schritt auf der Zielplattform durchgeführt werden. 
+
+
+## Warum?
+
+### Ausgangsproblem
+
+Bei der Rückwärtsdigitalisierung von Audiomedien werden Sammelbänder digitalisiert. Auf diesen sind Einzelbeiträge durch unüblich lange Sequenzen von Stille getrennt. Liegen für diese Bänder noch Nachweise vor, kann aus diesen die Anzahl der enthaltenen Beträge abgelesen werden. Nicht immer ist das der Fall, zum Teil sind sie unvollständig. Zudem fehlen in aller Regel Timecodes zu den Beiträgen, sind falsch oder ungenau. Das ist für eine zufriedenstellende Archivierung ärgerlich -- oder ziemlich zeitaufwendig manuell zu fixen.
+
+### Lösung
+
+Dieses Skript generiert daher aus einem Audiofile mögliche Beitrags-Sequenzen.
+
+Wird eine bestimmte Anzahl Sequenzen auf dem Band vermutet, prüft das Skript, ob die gefundenen Sequenzanzahl dieser Erwartung entspricht. Wenn eine passende Sequenzmenge gefunden wurde, wird die weitere Suche abgebrochen. 
+
+Ist die Anzahl unbekannt, werden nach mehreren Durchgängen (vgl. `SETTINGS['ffmpeg_options']` in `settings.py`) mit unterschiedlichen Parametern die gefundenen Sequenzen verglichen. Gleichen sie sich hinreichend genau (max. 10 Sekunden Unterschied), gelten Sequemzmengen als gleich. In der Ausgabe wird notiert, wie oft die gleiche Sequenzmenge gefunden wird. Ab zwei gleichen Mengen scheinen die Ergebnisse zuverlässig.
+
+Zur Weiterverarbeitung werden die Ergebnisse in JSON und als Excel-Datei ausgegeben.
+
+## Alternativen
+
+- [pydub](https://github.com/jiaaro/pydub) bietet mit `detect_silence` eine ähnliche Funktion, baut ebenfalls auf ffmpeg auf, trifft den Anwendungsfall aber nur teilweise
+- [ffmpeg direkt nutzen](http://underpop.online.fr/f/ffmpeg/help/silencedetect.htm.gz), ffmpeg bietet `silencedetect`, auf das hier aufgebaut wird
+- [Audacity silence finder](https://manual.audacityteam.org/man/silence_finder_setting_parameters.html) (nicht getestet, GUI)
