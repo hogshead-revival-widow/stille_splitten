@@ -3,8 +3,6 @@ import logging
 from pathlib import Path
 from .consts import FFMPEG_FILE, PYINSTALL_PLANNED
 
-Adminrechte/Installation ausgeführt werden kann."""
-
 app_root = Path.home() / 'Desktop' / 'stille_splitten'
 
 if FFMPEG_FILE is None:
