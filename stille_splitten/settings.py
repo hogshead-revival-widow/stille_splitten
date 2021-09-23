@@ -1,8 +1,19 @@
-from pathlib import Path
+import pkg_resources
 import logging
+from pathlib import Path
+from .consts import FFMPEG_FILE, PYINSTALL_PLANNED
+
+Adminrechte/Installation ausgeführt werden kann."""
 
 app_root = Path.home() / 'Desktop' / 'stille_splitten'
 
+if FFMPEG_FILE is None:
+    ffmpeg = 'ffmpeg'
+else:
+    if PYINSTALL_PLANNED:
+        ffmpeg = pkg_resources.resource_filename('stille_splitten', FFMPEG_FILE)
+    else:
+        ffmpeg = Path(FFMPEG_FILE)
 
 SETTINGS = dict(
     batch_processing=False,
@@ -16,5 +27,5 @@ SETTINGS = dict(
     ffmpeg_options=[(-60, 2), (-50, 1), (-70, 2), (-50, 2)],
     cli_input=None,
     run_id=None,
-    ffmpeg_binary='ffmpeg'
+    ffmpeg_binary=ffmpeg
 )
