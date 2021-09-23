@@ -14,7 +14,7 @@ Trennt Audio-Files auf denen Beiträge durch unüblich lang anhaltende Stille ge
 
 [ffmpeg](https://ffmpeg.org/) muss auf dem System vorliegen und in `PATH` aufzufinden sein.
 
-Alternativ ist der Pfad zu FFMPEG in `settings.py` anzugeben bzw. eine portable Version zu erstellen (per `create_portable` via pyinstall möglich, vgl. dazu  [unten]([#generierung-einer-portablen-datei)).
+Alternativ ist der Pfad zu FFMPEG in `settings.py` anzugeben bzw. eine portable Version zu erstellen (per `create_portable` via pyinstall möglich, vgl. dazu  [unten](#generierung-einer-portablen-datei)).
 
 # Wo finde ich was?
 
