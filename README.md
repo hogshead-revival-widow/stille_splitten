@@ -8,7 +8,8 @@ Trennt Audio-Files auf denen Beiträge durch unüblich lang anhaltende Stille ge
 2. `cd <Verzeichnis in das entpackt wurde>`
 3. `python -m pip install -e .`
 
-`stille_splitten` ist nun als Kommandozeilen-Befel zugänglich.
+`stille_splitten` ist nun als Kommandozeilen-Befel zugänglich. 
+Auf dem Mac ist ggf. `python3` zu verwenden.
 
 ## Voraussetzung
 
@@ -143,20 +144,18 @@ Um das Skript auch unabhängig von einer existierenden Pythoninstallation einset
 
 1. Repo klonen oder runterladen
 2. `cd <Verzeichnis in das entpackt wurde>`
-3. Anpassung der folgenden Konstanten in `consts.py`
-3.1. `PYINSTALL_PLANNED` auf `True` ändern
-3.2. `FFMPEG_FILE` auf 'bin/ffmpeg.exe' ändern
-4.`cd <Verzeichnis in das entpackt wurde>/stille_splitten/`
-5. mkdir bin
-6. [FFMPEG](https://ffmpeg.org/) herunterladen oder kopieren und nach bin/ verschieben
-7. `cd <Verzeichnis in das entpackt wurde>`
-8. `pip3 install -e .` (die ggf. vor Anpassung der Konstanten installierte Version ist nicht nutzbar)
-9. `python3 create_portable.py`
-10. Der in `dist` erstellte Ordner ist nun teilbar und kann unabhängig von einer eigenständigen Pythoninstallation oder Drittbibliotheken eingesetzt werden.
+4. Anpassung der folgenden Konstante in `consts.py`: `PYINSTALL_PLANNED` auf `True` ändern
+5. Ebenfalls dort anpassen: `FFMPEG_FILE` auf 'bin/ffmpeg' ändern (bzw. den Dateinamen aus Schritt 7)
+6.`cd <Verzeichnis in das entpackt wurde>/stille_splitten/bin`
+7. [FFMPEG](https://ffmpeg.org/) herunterladen oder kopieren und nach bin/ verschieben
+8. `cd <Verzeichnis in das entpackt wurde>`
+9. `pip3 install -e .` (die ggf. vor Anpassung der Konstanten installierte Version ist nicht nutzbar)
+10. `python3 create_portable.py`
+11. Der in `dist` erstellte Ordner ist nun teilbar und kann unabhängig von einer eigenständigen Pythoninstallation oder Drittbibliotheken eingesetzt werden.
 
 ### Windows
 
-Die Schritte auf Windows sind analog. Leider erlaubt Pyinstall keine Crossplattform-Generierung, entsprechend muss dieser Schritt auf der Zielplattform durchgeführt werden. 
+Die Schritte auf Windows sind analog. Leider erlaubt Pyinstall keine Crossplattform-Generierung, entsprechend muss dieser Schritt auf der Zielplattform durchgeführt werden. Auch dort ist `bin/` aus Schritt 7 zu verwenden.
 
 
 ## Warum?
