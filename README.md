@@ -157,11 +157,11 @@ Zur Weiterverarbeitung werden die Ergebnisse in JSON und als Excel-Datei ausgege
 
 # Anhang
 
-# Generierung einer portablen Datei
+## Generierung einer portablen Datei
 
 Um das Skript auch unabhängig von einer existierenden Pythoninstallation einsetzen zu können, kann per `pyinstall` eine portable Version generiert werden. Dazu sind folgende Schritte nötig. Das ist aus verschiedenen Gründen nur eine mittelgute Idee, aber es geht schnell.
 
-## MacOS
+### MacOS
 
 1. Repo klonen oder runterladen
 2. `cd <Verzeichnis in das entpackt wurde>`
