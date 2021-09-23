@@ -29,7 +29,9 @@ Es hat die folgenden Verzeichnisse:
 
 Das Log findet sich in `Desktop/stille_splitten/stille_splitten.log`.
 
-# Benutzung (Datei)
+# Beispiele
+ 
+## Suche nach Sequenzen in einer Datei 
 
 Die Datei `abc.mp3` soll untersucht werden, erwartet werden 3 Sequenzen, die durch Stille getrennt sind:
   * `stille_splitten datei abc.mp3 3`
@@ -38,7 +40,7 @@ Ausgabe:
   * in der Konsole wird der Fund als sicher oder wahrscheinlich eingeschätzt
   * in `stille_splitten/ergebnisse` sind die Ergebnisse als Exceldatei und JSON-formatiert zu finden
 
-# Benutzung (Stapelverarbeitung)
+## Suche in mehreren Dateien
 
 Alle Dateien im Verzeichnis `xyz/` sollen untersucht werden, es enthält z. B. die Datei `13-abc.mp3`. Durch die Angabe von "13-" im Dateinamen wird von dieser Datei angenomen, dass sie 13 Sequenzen enthält.
   * `stille_splitten stapel xyz`
@@ -48,7 +50,7 @@ Ausgabe:
   * in `stille_splitten/ergebnisse` sind die Ergebnisse als Exceldatei und JSON-formatiert zu finden in einer Sammeldatei für den gesamten Duchlauf
 
 
-# Beispiel: Sequenz gefunden
+## Sequenz gefunden
 
 ```
 [
@@ -68,10 +70,12 @@ Dabei bedeutet:
   * **end**: das Ende der Sequenz
   * **duration**: Sequenz-Dauer 
   * **sequence_nr**: fortlaufende Position der Sequenz im File
-  * **probability**: Wert zwischen `1` und der maximalen Menge an Durchläufen (vgl. `SETTINGS['ffmpeg_options']`) *oder* `100`
+  * **probability**: Mit einem Wert von 
     * 100: Sequenzmenge, der diese Sequenz zugehört, entspricht der Anzahl der erwarteten Sequenzen
-    * 1-4: Häufigkeit mit der identische Sequenzmengen, wie die, zu der diese Sequenz gehört,  im File in unterschiedlichen Durchläufen gefunden wurde
+    * oder zwischen 1 und *n*: Häufigkeit mit der ähnliche Sequenzmengen mit gleicher Anzahl an Sequenzen gefunden wurde, wobei *n* ´   `SETTINGS['ffmpeg_options']` korrespondiert, also der Anzahl an möglichen Durchläufen mit je verschiedenen Parametern. 
   * **in_file**: Datei in der diese Sequenz gefunden wurde (ohne Endung)
+
+Zusätzlich sind die Ergebnisse in einer Exceldatei zu finden.
 
 # Hilfe
 
