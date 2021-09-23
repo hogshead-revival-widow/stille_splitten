@@ -148,9 +148,9 @@ Um das Skript auch unabhängig von einer existierenden Pythoninstallation einset
 
 1. Repo klonen oder runterladen
 2. `cd <Verzeichnis in das entpackt wurde>`
-4. Anpassung der folgenden Konstante in `consts.py`: `PYINSTALL_PLANNED` auf `True` ändern
-5. Ebenfalls dort anpassen: `FFMPEG_FILE` auf 'bin/ffmpeg' ändern (bzw. den Dateinamen aus Schritt 7)
-6.`cd <Verzeichnis in das entpackt wurde>/stille_splitten/bin`
+4. Anpassung der folgenden Konstante in `stille_splitten/consts.py`: `PYINSTALL_PLANNED` auf `True` ändern
+5. Ebenfalls dort anpassen: `FFMPEG_FILE` auf 'stille_splitten/bin/ffmpeg' ändern (bzw. den Dateinamen aus Schritt 7)
+6. `cd <Verzeichnis in das entpackt wurde>/stille_splitten/bin`
 7. [FFMPEG](https://ffmpeg.org/) herunterladen oder kopieren und nach bin/ verschieben
 8. `cd <Verzeichnis in das entpackt wurde>`
 9. `pip3 install -e .` (die ggf. vor Anpassung der Konstanten installierte Version ist nicht nutzbar)
