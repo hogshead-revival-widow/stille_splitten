@@ -140,7 +140,7 @@ Die Einstellung der genutzten Pfade ist bei Bedarf in
 
 # Anhang
 
-## Generierung einer portablen Datei
+## Generierung einer portablen Version
 
 Um das Skript auch unabhängig von einer existierenden Pythoninstallation einsetzen zu können, kann per `pyinstall` eine portable Version generiert werden. Dazu sind folgende Schritte nötig. Das ist aus verschiedenen Gründen nur eine mittelgute Idee, aber es geht schnell.
 
