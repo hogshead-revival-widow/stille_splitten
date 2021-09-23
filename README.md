@@ -10,27 +10,6 @@ Trennt Audio-Files auf denen Beiträge durch unüblich lang anhaltende Stille ge
 
 `stille_splitten` ist nun als Kommandozeilen-Befel zugänglich.
 
-## Generierung einer portablen Datei
-
-Um das Skript auch unabhängig von einer existierenden Pythoninstallation einsetzen zu können, kann per `pyinstall` eine portable Version generiert werden. Dazu sind folgende Schritte nötig. Das ist aus verschiedenen Gründen nur eine mittelgute Idee, aber es geht schnell.
-
-### MacOS
-
-1. Repo klonen oder runterladen
-2. `cd <Verzeichnis in das entpackt wurde>`
-3. Anpassung der folgenden Konstanten in `consts.py`
-3.1. `PYINSTALL_PLANNED` auf `True` ändern
-3.2. `FFMPEG_FILE` auf 'bin/ffmpeg.exe' ändern
-4.`cd <Verzeichnis in das entpackt wurde>/stille_splitten/`
-5. mkdir bin
-6. [FFMPEG](https://ffmpeg.org/) herunterladen oder kopieren und nach bin/ verschieben
-7. `cd <Verzeichnis in das entpackt wurde>`
-8. `pip3 install -e .` (die ggf. vor Anpassung der Konstanten installierte Version ist nicht nutzbar)
-9. `python3 create_portable.py`
-10. Der in `dist` erstellte Ordner ist nun teilbar und kann unabhängig von einer eigenständigen Pythoninstallation oder Drittbibliotheken eingesetzt werden.
-
-Die Schritte auf Windows sind analog. Leider erlaubt Pyinstall keine Crossplattform-Generierung, entsprechend muss dieser Schritt auf der Zielplattform durchgeführt werden. 
-
 ## Voraussetzung
 
 [ffmpeg](https://ffmpeg.org/) muss auf dem System vorliegen und in `PATH` aufzufinden sein.
@@ -175,3 +154,26 @@ Zur Weiterverarbeitung werden die Ergebnisse in JSON und als Excel-Datei ausgege
 - [pydub](https://github.com/jiaaro/pydub) bietet mit `detect_silence` eine ähnliche Funktion, baut ebenfalls auf ffmpeg auf, trifft den Anwendungsfall aber nur teilweise
 - [ffmpeg direkt nutzen](http://underpop.online.fr/f/ffmpeg/help/silencedetect.htm.gz), ffmpeg bietet `silencedetect`, auf das hier aufgebaut wird
 - [Audacity silence finder](https://manual.audacityteam.org/man/silence_finder_setting_parameters.html) (nicht getestet, GUI)
+
+# Anhang
+
+# Generierung einer portablen Datei
+
+Um das Skript auch unabhängig von einer existierenden Pythoninstallation einsetzen zu können, kann per `pyinstall` eine portable Version generiert werden. Dazu sind folgende Schritte nötig. Das ist aus verschiedenen Gründen nur eine mittelgute Idee, aber es geht schnell.
+
+## MacOS
+
+1. Repo klonen oder runterladen
+2. `cd <Verzeichnis in das entpackt wurde>`
+3. Anpassung der folgenden Konstanten in `consts.py`
+3.1. `PYINSTALL_PLANNED` auf `True` ändern
+3.2. `FFMPEG_FILE` auf 'bin/ffmpeg.exe' ändern
+4.`cd <Verzeichnis in das entpackt wurde>/stille_splitten/`
+5. mkdir bin
+6. [FFMPEG](https://ffmpeg.org/) herunterladen oder kopieren und nach bin/ verschieben
+7. `cd <Verzeichnis in das entpackt wurde>`
+8. `pip3 install -e .` (die ggf. vor Anpassung der Konstanten installierte Version ist nicht nutzbar)
+9. `python3 create_portable.py`
+10. Der in `dist` erstellte Ordner ist nun teilbar und kann unabhängig von einer eigenständigen Pythoninstallation oder Drittbibliotheken eingesetzt werden.
+
+Die Schritte auf Windows sind analog. Leider erlaubt Pyinstall keine Crossplattform-Generierung, entsprechend muss dieser Schritt auf der Zielplattform durchgeführt werden. 
