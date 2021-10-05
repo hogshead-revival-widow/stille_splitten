@@ -1,5 +1,6 @@
 import logging
-import copy
+import itertools
+import math
 from timecode import Timecode
 from .consts import SUCCESS, NO_RESULT, UNWEIGHTED_RESULTS, NAME
 from .settings import SETTINGS
@@ -46,28 +47,39 @@ def guess_most_plausible_sequences(all_tries):
             * all_tries: [[dict,...],..]
             * `UNWEIGHTED_RESULTS`
     """
-    in_all_tries = all_tries
-    all_tries = copy.deepcopy(all_tries)
+    compare_list = list()
 
-    for tried in all_tries:
-        for sequence in tried:
-            for key in sequence:
-                if isinstance(sequence[key], Timecode):
-                    # Vergleichsgenauigkeit auf ~zehn Sekunden reduzieren:
-                    # 00:10:12.300 -> 00:10:1
-                    sequence[key] = str(sequence[key])[:7]
+    for sequences in all_tries:
+        compare_sequences = list()
+        compare_list.append(compare_sequences)
+        for sequence in sequences:
+            start = float(sequence['start'].frames / 1000)
+            end = float(sequence['end'].frames / 1000)
+            compare_sequences.append(start)
+            compare_sequences.append(end)
 
-    weighted_tries = dict()
 
-    for index, sequences in enumerate(all_tries, 0):
-        occurence = all_tries.count(sequences)
-        weighted_tries[occurence] = in_all_tries[index]
+    confirmed_in_different_runs = dict((key,1) for key, _ in enumerate(all_tries))
 
-    max_occurence = max(weighted_tries.keys())
+    compare_list_by_len = dict()
+    for index_inner_list, inner_list in enumerate(all_tries):
+        compare_list_by_len.setdefault(len(inner_list), list()).append(index_inner_list)
 
-    if max_occurence > UNWEIGHTED_RESULTS:
-        return (weighted_tries[max_occurence], max_occurence)
-    return (in_all_tries, UNWEIGHTED_RESULTS)
+    for _, same_len_lists in compare_list_by_len.items():
+        if len(same_len_lists) > 1:
+            for a, b in itertools.combinations(same_len_lists, 2):
+                if all((math.isclose(that, other, abs_tol=SETTINGS['tolerance']) for that, other in zip(compare_list[a], compare_list[b]))):
+                    confirmed_in_different_runs[a] += 1
+                    confirmed_in_different_runs[b] += 1
+
+
+    max_confirmed = max(confirmed_in_different_runs.values())
+    print(confirmed_in_different_runs)
+    index_most_plausible_sequences = dict((v,k) for k,v in confirmed_in_different_runs.items())[max_confirmed]
+
+    if max_confirmed > UNWEIGHTED_RESULTS:
+        return all_tries[index_most_plausible_sequences], max_confirmed
+    return all_tries, UNWEIGHTED_RESULTS
 
 
 def generate_sequences(from_file, expectation):
