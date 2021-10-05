@@ -4,7 +4,7 @@ NO_RESULT = -1
 UNWEIGHTED_RESULTS = 1
 
 # programm
-VERSION = '0.0.6'
+VERSION = '0.0.7'
 NAME = 'stille' # Name des zu generierenden Konsolenskripts
 
 """ Wenn `FFMPEG_FILE` None ist, wird `ffmpeg` im Pfad erwartet.
