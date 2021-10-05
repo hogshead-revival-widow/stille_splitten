@@ -25,5 +25,6 @@ SETTINGS = dict(
     ffmpeg_options=[(-60, 2), (-50, 1), (-70, 2), (-50, 2)],
     cli_input=None,
     run_id=None,
-    ffmpeg_binary=ffmpeg
+    ffmpeg_binary=ffmpeg,
+    tolerance=1.5 # sekunden
 )
