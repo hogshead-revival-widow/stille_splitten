@@ -172,7 +172,7 @@ Bei der Rückwärtsdigitalisierung von Audiomedien werden Sammelbänder digitali
 
 Dieses Skript generiert daher aus einem Audiofile mögliche Beitrags-Sequenzen.
 
-Wird eine bestimmte Anzahl Sequenzen auf dem Band vermutet, prüft das Skript, ob die gefundenen Sequenzanzahl dieser Erwartung entspricht. Wenn eine passende Sequenzmenge gefunden wurde, wird die weitere Suche abgebrochen. Ist die Anzahl unbekannt, werden nach mehreren Durchgängen (vgl. `SETTINGS['ffmpeg_options']` in `settings.py`) mit unterschiedlichen Parametern die gefundenen Sequenzen verglichen. Gleichen sie sich hinreichend genau (max. 10 Sekunden Unterschied), gelten Sequemzmengen als gleich. In der Ausgabe wird notiert, wie oft die gleiche Sequenzmenge gefunden wird. Ab zwei gleichen Mengen scheinen die Ergebnisse zuverlässig.
+Wird eine bestimmte Anzahl Sequenzen auf dem Band vermutet, prüft das Skript, ob die gefundenen Sequenzanzahl dieser Erwartung entspricht. Wenn eine passende Sequenzmenge gefunden wurde, wird die weitere Suche abgebrochen. Ist die Anzahl unbekannt, werden nach mehreren Durchgängen (vgl. `SETTINGS['ffmpeg_options']` in `settings.py`) mit unterschiedlichen Parametern die gefundenen Sequenzen verglichen. Unterscheiden sich alle Zeitcodes zweier Sequenzmengen um jeweils weniger als `SETTINGS['tolerance']`, gelten Sequemzmengen als gleich. In der Ausgabe wird notiert, wie oft die gleiche Sequenzmenge gefunden wird. Ab zwei gleichen Mengen scheinen die Ergebnisse zuverlässig.
 
 Zur Weiterverarbeitung werden die Ergebnisse in JSON und als Excel-Datei ausgegeben.
 
