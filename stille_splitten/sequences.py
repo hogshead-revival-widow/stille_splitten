@@ -74,7 +74,6 @@ def guess_most_plausible_sequences(all_tries):
 
 
     max_confirmed = max(confirmed_in_different_runs.values())
-    print(confirmed_in_different_runs)
     index_most_plausible_sequences = dict((v,k) for k,v in confirmed_in_different_runs.items())[max_confirmed]
 
     if max_confirmed > UNWEIGHTED_RESULTS:
