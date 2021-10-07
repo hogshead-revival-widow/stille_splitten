@@ -1,3 +1,7 @@
+# Verweis
+
+Siehe [hier](https://github.com/hogshead-revival-widow/zerhacken) für korrespondierendes Web-Frontend/Mini-API.
+
 # Überblick
 
 Trennt Audio-Files auf denen Beiträge durch unüblich lang anhaltende Stille getrennt sind (z. B. digitalisierte Sammelbänder). Als Ergebnis werden die berechneten Start- und Endpunkte der Beiträge als Timecode ausgegeben. 
